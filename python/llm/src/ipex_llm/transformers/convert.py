@@ -1058,9 +1058,8 @@ def _optimize_pre(model, qtype=None):
         elif isinstance(model.config.eos_token_id, list):
             # glm4 family
             if hasattr(model.transformer, "vision"):
-                if model.config.num_layers != 40:
-                    from ipex_llm.transformers.models.chatglm4v import merge_qkv
-                    model.apply(merge_qkv)
+                from ipex_llm.transformers.models.chatglm4v import merge_qkv
+                model.apply(merge_qkv)
             elif model.config.num_layers in [40, 28]:
                 from ipex_llm.transformers.models.chatglm2 import split_mlp
                 model.apply(split_mlp)
